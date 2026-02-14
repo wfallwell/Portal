@@ -181,12 +181,7 @@ export function FundingMethods() {
       >
         {fundingMethodCards.map((card) => {
           const IconComponent = card.Icon;
-          const CardWrapper = card.comingSoon ? Box : Link;
-          const cardProps = card.comingSoon
-            ? {}
-            : { to: card.path, style: { textDecoration: 'none', color: 'inherit' } };
-          return (
-            <CardWrapper key={card.id} {...cardProps}>
+          const cardContent = (
             <AppCard
               sx={{
                 position: 'relative',
@@ -284,7 +279,13 @@ export function FundingMethods() {
                 ))}
               </Box>
             </AppCard>
-            </CardWrapper>
+          );
+          return card.comingSoon ? (
+            <Box key={card.id}>{cardContent}</Box>
+          ) : (
+            <Link key={card.id} to={card.path!} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {cardContent}
+            </Link>
           );
         })}
       </Box>

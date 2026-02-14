@@ -39,7 +39,7 @@ export function Login() {
     }
   };
 
-  const handleCodeKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleCodeKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === 'Backspace' && !code[index] && index > 0) {
       codeInputRefs.current[index - 1]?.focus();
       const next = [...code];
