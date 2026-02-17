@@ -84,7 +84,9 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               {section.title}
             </Typography>
             {section.items.map((item) => {
-              const active = location.pathname === item.path;
+              const active = item.activePaths
+                ? item.activePaths.includes(location.pathname)
+                : location.pathname === item.path;
               return (
                 <ListItemButton
                   key={item.path}

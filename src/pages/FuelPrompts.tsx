@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
@@ -93,6 +94,14 @@ export function FuelPrompts() {
   return (
     <>
       <Box sx={{ mb: 2.5 }}>
+        <Typography
+          component={Link}
+          to="/settings"
+          variant="body2"
+          sx={{ color: 'primary.main', textDecoration: 'underline', display: 'inline-block', mb: 1 }}
+        >
+          ← Settings
+        </Typography>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.3 }}>
           Fuel prompts
         </Typography>

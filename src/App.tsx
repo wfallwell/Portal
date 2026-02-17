@@ -10,6 +10,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Transactions } from './pages/Transactions';
 import { MyTeam } from './pages/MyTeam';
 import { Vehicles } from './pages/Vehicles';
+import { Settings } from './pages/Settings';
 import { FuelPrompts } from './pages/FuelPrompts';
 import { SpendControls } from './pages/SpendControls';
 import { Telematics } from './pages/Telematics';
@@ -117,6 +118,7 @@ function App() {
         <Route path="my-team/:id" element={<DriverProfile />} />
         <Route path="vehicles" element={<Vehicles />} />
         <Route path="vehicles/:id" element={<VehicleProfile />} />
+        <Route path="settings" element={<Settings />} />
         <Route path="fuel-prompts" element={<FuelPrompts />} />
         <Route path="spend-controls" element={<SpendControls />} />
         <Route path="telematics" element={<Telematics />} />
