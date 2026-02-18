@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
-import { AppCard } from '../components';
+import { AppCard, SuccessBanner } from '../components';
 
 const PRODUCTS = [
   { id: 'fuel', label: 'Fuel', enabled: true },
@@ -15,9 +15,13 @@ export function SpendControls() {
   const [purchaseLimitOn, setPurchaseLimitOn] = useState(false);
   const [transactionLimitOn, setTransactionLimitOn] = useState(false);
   const [products, setProducts] = useState(PRODUCTS);
+  const [successBannerOpen, setSuccessBannerOpen] = useState(false);
+
+  const showSuccess = () => setSuccessBannerOpen(true);
 
   const toggleProduct = (id: string) => {
     setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)));
+    showSuccess();
   };
 
   return (
@@ -50,7 +54,7 @@ export function SpendControls() {
           <Box sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 2.5, display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', width: '100%' }}>
             <Switch
               checked={purchaseLimitOn}
-              onChange={(e) => setPurchaseLimitOn(e.target.checked)}
+              onChange={(e) => { setPurchaseLimitOn(e.target.checked); showSuccess(); }}
             />
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Purchase limit</Typography>
@@ -67,7 +71,7 @@ export function SpendControls() {
           <Box sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 2.5, display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', width: '100%' }}>
             <Switch
               checked={transactionLimitOn}
-              onChange={(e) => setTransactionLimitOn(e.target.checked)}
+              onChange={(e) => { setTransactionLimitOn(e.target.checked); showSuccess(); }}
             />
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Transaction limit</Typography>
@@ -98,6 +102,11 @@ export function SpendControls() {
           </AppCard>
         ))}
       </Box>
+      <SuccessBanner
+        open={successBannerOpen}
+        message="Spend controls updated"
+        onClose={() => setSuccessBannerOpen(false)}
+      />
     </>
   );
 }

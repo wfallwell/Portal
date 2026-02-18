@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EmailIcon from '@mui/icons-material/Email';
-import { AppCard } from '../components';
+import { AppCard, SuccessBanner } from '../components';
 import { fleet } from '../data/dashboardData';
 import { useTheme } from '@mui/material/styles';
 
@@ -19,12 +19,14 @@ function getETransferEmail(): string {
 export function FundingETransfer() {
   const theme = useTheme();
   const [copied, setCopied] = useState(false);
+  const [successBannerOpen, setSuccessBannerOpen] = useState(false);
   const email = getETransferEmail();
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
+      setSuccessBannerOpen(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // fallback: select and suggest copy
@@ -108,6 +110,11 @@ export function FundingETransfer() {
           </Typography>
         </Box>
       </AppCard>
+      <SuccessBanner
+        open={successBannerOpen}
+        message="Email copied to clipboard"
+        onClose={() => setSuccessBannerOpen(false)}
+      />
     </>
   );
 }

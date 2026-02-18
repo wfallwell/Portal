@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import FolderIcon from '@mui/icons-material/Folder';
-import { AppCard, AppButton } from '../components';
+import { AppCard, AppButton, SuccessBanner } from '../components';
 
 const PAST_ARCHIVES = [
   { id: '1', label: 'June 2023 Archive', year: 2023 },
@@ -28,6 +28,7 @@ export function ReceiptArchive() {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [year, setYear] = useState(2023);
+  const [successBannerOpen, setSuccessBannerOpen] = useState(false);
 
   const filteredArchives = PAST_ARCHIVES.filter((a) => a.year === year);
 
@@ -85,7 +86,7 @@ export function ReceiptArchive() {
               fullWidth
             />
           </Box>
-          <AppButton variant="contained" onClick={() => {}}>
+          <AppButton variant="contained" onClick={() => setSuccessBannerOpen(true)}>
             Download
           </AppButton>
         </Box>
@@ -167,7 +168,7 @@ export function ReceiptArchive() {
                     component="a"
                     href="#"
                     variant="body2"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => { e.preventDefault(); setSuccessBannerOpen(true); }}
                     sx={{ color: 'primary.main', textDecoration: 'underline', fontWeight: 600, whiteSpace: 'nowrap' }}
                   >
                     Download
@@ -178,6 +179,11 @@ export function ReceiptArchive() {
           </Box>
         </Box>
       </AppCard>
+      <SuccessBanner
+        open={successBannerOpen}
+        message="Receipt archive download started"
+        onClose={() => setSuccessBannerOpen(false)}
+      />
     </>
   );
 }

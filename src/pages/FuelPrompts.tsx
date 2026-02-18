@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useTheme } from '@mui/material/styles';
-import { AppCard, AppButton, AppTextField } from '../components';
+import { AppCard, AppButton, AppTextField, SuccessBanner } from '../components';
 
 type PromptItem = {
   id: string;
@@ -35,9 +35,11 @@ export function FuelPrompts() {
   const [addDrawerOpen, setAddDrawerOpen] = useState(false);
   const [customName, setCustomName] = useState('');
   const [customOptions, setCustomOptions] = useState<string[]>(['']);
+  const [successBannerOpen, setSuccessBannerOpen] = useState(false);
 
   const togglePrompt = (id: string) => {
     setPrompts((prev) => prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)));
+    setSuccessBannerOpen(true);
   };
 
   const openAddDrawer = () => {
@@ -263,6 +265,11 @@ export function FuelPrompts() {
           </Box>
         </Box>
       </Drawer>
+      <SuccessBanner
+        open={successBannerOpen}
+        message="Fuel prompt updated"
+        onClose={() => setSuccessBannerOpen(false)}
+      />
     </>
   );
 }

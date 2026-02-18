@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { AppCard, AppButton } from '../components';
+import { AppCard, AppButton, SuccessBanner } from '../components';
 
 const PAST_STATEMENTS = [
   { id: '1', label: 'May 16 - 31 • 2023', year: 2023 },
@@ -27,6 +27,7 @@ export function Statements() {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [year, setYear] = useState(2026);
+  const [successBannerOpen, setSuccessBannerOpen] = useState(false);
 
   const filteredStatements = PAST_STATEMENTS.filter((s) => s.year === year);
 
@@ -87,7 +88,7 @@ export function Statements() {
               fullWidth
             />
           </Box>
-          <AppButton variant="contained" onClick={() => {}}>
+          <AppButton variant="contained" onClick={() => setSuccessBannerOpen(true)}>
             Generate
           </AppButton>
         </Box>
@@ -185,6 +186,11 @@ export function Statements() {
           </Box>
         </Box>
       </AppCard>
+      <SuccessBanner
+        open={successBannerOpen}
+        message="We'll email your statement shortly"
+        onClose={() => setSuccessBannerOpen(false)}
+      />
     </>
   );
 }
