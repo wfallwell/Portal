@@ -10,12 +10,15 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTheme } from '@mui/material/styles';
 import { navSections, SIDEBAR_WIDTH, SUPPORT_PHONE } from '../config/navConfig';
-import { colors } from '../theme/tokens';
+import { useThemeContext } from '../theme/ThemeContext';
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { brandId } = useThemeContext();
+  const isBrand1 = brandId === 'brand1';
 
   const handleNav = (path: string) => {
     navigate(path);
@@ -35,30 +38,46 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         overflow: 'hidden',
       }}
     >
-      {/* Pattern in top-right of nav */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: 120,
-          height: 120,
-          backgroundImage: 'url(/nav-pattern.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'top right',
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Pattern in top-right of nav (Brand 1 only) */}
+      {isBrand1 && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: 120,
+            height: 120,
+            backgroundImage: 'url(/nav-pattern.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top right',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
       <Link
         to="/dashboard"
-        style={{ display: 'block', marginBottom: 20 }}
-        aria-label="fillip Portal home"
+        style={{ display: 'block', marginBottom: 20, textDecoration: 'none' }}
+        aria-label="Portal home"
       >
-        <img
-          src="/fillip-logo-white.png"
-          alt="fillip"
-          style={{ height: 63, width: 'auto', display: 'block' }}
-        />
+        {isBrand1 ? (
+          <img
+            src="/fillip-logo-white.png"
+            alt="fillip"
+            style={{ height: 63, width: 'auto', display: 'block' }}
+          />
+        ) : (
+          <Typography
+            variant="h5"
+            sx={{
+              color: 'white',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2,
+            }}
+          >
+            Portal
+          </Typography>
+        )}
       </Link>
       <List
         sx={{
@@ -100,13 +119,13 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                     color: 'white',
                     minHeight: 40,
                     '&.Mui-selected': {
-                      backgroundColor: colors.bg,
-                      color: colors.primary,
+                      backgroundColor: 'background.default',
+                      color: 'primary.main',
                       '&:hover': {
-                        backgroundColor: colors.bg,
+                        backgroundColor: 'background.default',
                       },
                       '& .MuiListItemIcon-root': {
-                        color: colors.primary,
+                        color: 'primary.main',
                       },
                     },
                     '& .MuiListItemIcon-root': {
@@ -138,6 +157,19 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           borderColor: 'rgba(255,255,255,0.12)',
         }}
       >
+        <Typography
+          component={Link}
+          to="/admin"
+          variant="body2"
+          sx={{
+            color: 'white',
+            textDecoration: 'underline',
+            display: 'block',
+            mb: 1,
+          }}
+        >
+          Admin
+        </Typography>
         <Typography
           component="button"
           type="button"
@@ -172,6 +204,9 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export function PortalLayout() {
+  const theme = useTheme();
+  const { brandId } = useThemeContext();
+  const isBrand1 = brandId === 'brand1';
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const drawer = (
@@ -186,7 +221,7 @@ export function PortalLayout() {
           boxSizing: 'border-box',
           borderRight: 'none',
           borderRadius: 0,
-          backgroundColor: colors.primary,
+          backgroundColor: theme.palette.primary.main,
           color: 'white',
           top: 0,
           bottom: 0,
@@ -210,7 +245,7 @@ export function PortalLayout() {
           maxWidth: 320,
           boxSizing: 'border-box',
           borderRadius: 0,
-          backgroundColor: colors.primary,
+          backgroundColor: theme.palette.primary.main,
           color: 'white',
           top: 0,
           left: 0,
@@ -251,19 +286,21 @@ export function PortalLayout() {
             overflow: 'hidden',
           }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: 90,
-              height: 90,
-              backgroundImage: 'url(/nav-pattern.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'top right',
-              pointerEvents: 'none',
-            }}
-          />
+          {isBrand1 && (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: 90,
+                height: 90,
+                backgroundImage: 'url(/nav-pattern.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'top right',
+                pointerEvents: 'none',
+              }}
+            />
+          )}
           <IconButton
             aria-label="Open menu"
             onClick={() => setMobileOpen(true)}
@@ -271,12 +308,18 @@ export function PortalLayout() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center' }} aria-label="fillip Portal home">
-            <img
-              src="/fillip-logo-white.png"
-              alt="fillip"
-              style={{ height: 51, width: 'auto' }}
-            />
+          <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }} aria-label="Portal home">
+            {isBrand1 ? (
+              <img
+                src="/fillip-logo-white.png"
+                alt="fillip"
+                style={{ height: 51, width: 'auto' }}
+              />
+            ) : (
+              <Typography variant="h6" sx={{ color: 'white', fontWeight: 700, letterSpacing: '-0.02em' }}>
+                Portal
+              </Typography>
+            )}
           </Link>
         </Box>
         <Box sx={{ flex: 1, minWidth: 0, p: { xs: 2, sm: 3 }, overflow: 'auto' }}>

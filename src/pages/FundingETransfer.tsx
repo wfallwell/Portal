@@ -7,7 +7,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EmailIcon from '@mui/icons-material/Email';
 import { AppCard } from '../components';
 import { fleet } from '../data/dashboardData';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 /** Unique email derived from fleet (e.g. acme-transport-7k2m@fillipfleet.com) */
 function getETransferEmail(): string {
@@ -17,6 +17,7 @@ function getETransferEmail(): string {
 }
 
 export function FundingETransfer() {
+  const theme = useTheme();
   const [copied, setCopied] = useState(false);
   const email = getETransferEmail();
 
@@ -94,9 +95,9 @@ export function FundingETransfer() {
               onClick={handleCopy}
               size="medium"
               sx={{
-                borderColor: colors.primary,
-                color: colors.primary,
-                '&:hover': { borderColor: colors.primary, bgcolor: `${colors.primary}08` },
+                borderColor: theme.palette.primary.main,
+                color: theme.palette.primary.main,
+                '&:hover': { borderColor: theme.palette.primary.main, bgcolor: `${theme.palette.primary.main}08` },
               }}
             >
               {copied ? 'Copied!' : 'Copy email'}

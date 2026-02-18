@@ -5,12 +5,13 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { AppButton } from '../components';
 import { setAuth } from '../auth';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 const PATTERN_SIZE = 120;
 const CODE_LENGTH = 6;
 
 export function Login() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [step, setStep] = useState<1 | 2>(1);
   const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ export function Login() {
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
     setAuth();
-    navigate('/dashboard', { replace: true });
+    navigate('/onboarding', { replace: true });
   };
 
   const handleCodeChange = (index: number, value: string) => {
@@ -64,7 +65,7 @@ export function Login() {
         position: 'relative',
         minHeight: '100vh',
         overflow: 'hidden',
-        bgcolor: colors.primary,
+        bgcolor: theme.palette.primary.main,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -105,13 +106,13 @@ export function Login() {
           maxWidth: 400,
           p: 4,
           borderRadius: 2,
-          bgcolor: colors.surface,
+          bgcolor: theme.palette.background.paper,
           boxShadow: '0 24px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.12)',
           border: '1px solid',
           borderColor: 'rgba(255, 255, 255, 0.12)',
         }}
       >
-        <Typography variant="body2" sx={{ color: colors.textMuted, mb: 3 }}>
+        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, mb: 3 }}>
           {step === 1 ? 'Sign in to your account' : 'Two-factor authentication'}
         </Typography>
 
@@ -143,7 +144,7 @@ export function Login() {
           </Box>
         ) : (
           <Box component="form" onSubmit={handleVerify}>
-            <Typography variant="body2" sx={{ color: colors.textMuted, mb: 2 }}>
+            <Typography variant="body2" sx={{ color: theme.palette.text.secondary, mb: 2 }}>
               We sent a 6-digit code to your phone. Enter it below.
             </Typography>
             <Box
@@ -193,7 +194,7 @@ export function Login() {
                 background: 'none',
                 cursor: 'pointer',
                 font: 'inherit',
-                color: colors.primary,
+                color: theme.palette.primary.main,
                 textDecoration: 'underline',
                 '&:hover': { textDecoration: 'underline' },
               }}

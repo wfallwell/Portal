@@ -8,8 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useTheme } from '@mui/material/styles';
 import { AppCard, AppButton, AppTextField } from '../components';
-import { colors } from '../theme/tokens';
 
 type PromptItem = {
   id: string;
@@ -29,12 +29,8 @@ const INITIAL_PROMPTS: PromptItem[] = [
 
 const DRAWER_WIDTH = 440;
 
-const switchSx = {
-  '& .MuiSwitch-switchBase.Mui-checked': { color: colors.accent },
-  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: colors.accent },
-};
-
 export function FuelPrompts() {
+  const theme = useTheme();
   const [prompts, setPrompts] = useState<PromptItem[]>(INITIAL_PROMPTS);
   const [addDrawerOpen, setAddDrawerOpen] = useState(false);
   const [customName, setCustomName] = useState('');
@@ -144,7 +140,6 @@ export function FuelPrompts() {
               <Switch
                 checked={prompt.enabled}
                 onChange={() => togglePrompt(prompt.id)}
-                sx={switchSx}
               />
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
@@ -186,7 +181,7 @@ export function FuelPrompts() {
                 Name the prompt and define multiple choice options for drivers.
               </Typography>
             </Box>
-            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${colors.accent}26`, color: colors.primary, '&:hover': { bgcolor: `${colors.accent}40` } }}>
+            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${theme.palette.secondary.main}26`, color: theme.palette.primary.main, '&:hover': { bgcolor: `${theme.palette.secondary.main}40` } }}>
               <CloseIcon />
             </IconButton>
           </Box>

@@ -10,6 +10,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Transactions } from './pages/Transactions';
 import { MyTeam } from './pages/MyTeam';
 import { Vehicles } from './pages/Vehicles';
+import { Admin } from './pages/Admin';
+import { Onboarding } from './pages/Onboarding';
 import { Settings } from './pages/Settings';
 import { FuelPrompts } from './pages/FuelPrompts';
 import { SpendControls } from './pages/SpendControls';
@@ -24,7 +26,7 @@ import { DriverProfile } from './pages/DriverProfile';
 import { VehicleProfile } from './pages/VehicleProfile';
 import { Activity } from './pages/Activity';
 import { Receipt } from './pages/Receipt';
-import { colors } from './theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 const SITE_PASSWORD_KEY = 'portal-site-unlocked';
 const SITE_PASSWORD = 'Fillip2026!';
@@ -35,6 +37,7 @@ function isSiteUnlocked(): boolean {
 }
 
 function App() {
+  const theme = useTheme();
   const [unlocked, setUnlocked] = useState(isSiteUnlocked);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -61,7 +64,7 @@ function App() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          bgcolor: colors.primary,
+          bgcolor: theme.palette.primary.main,
           p: 3,
         }}
       >
@@ -97,7 +100,7 @@ function App() {
               },
             }}
           />
-          <AppButton type="submit" variant="contained" fullWidth sx={{ bgcolor: colors.accent, color: colors.primary, '&:hover': { bgcolor: '#7ad9d0' } }}>
+          <AppButton type="submit" variant="contained" fullWidth sx={{ bgcolor: 'secondary.main', color: 'primary.main', '&:hover': { bgcolor: 'secondary.dark' } }}>
             Continue
           </AppButton>
         </Box>
@@ -108,6 +111,7 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/onboarding" element={<RequireAuth><Onboarding /></RequireAuth>} />
       <Route path="/" element={<RequireAuth><PortalLayout /></RequireAuth>}>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
@@ -118,6 +122,7 @@ function App() {
         <Route path="my-team/:id" element={<DriverProfile />} />
         <Route path="vehicles" element={<Vehicles />} />
         <Route path="vehicles/:id" element={<VehicleProfile />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="settings" element={<Settings />} />
         <Route path="fuel-prompts" element={<FuelPrompts />} />
         <Route path="spend-controls" element={<SpendControls />} />

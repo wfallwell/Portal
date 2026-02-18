@@ -20,11 +20,6 @@ export function SpendControls() {
     setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)));
   };
 
-  const switchSx = {
-    '& .MuiSwitch-switchBase.Mui-checked': { color: '#88EDE4' },
-    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#88EDE4' },
-  };
-
   return (
     <>
       <Box sx={{ mb: 2.5 }}>
@@ -56,7 +51,6 @@ export function SpendControls() {
             <Switch
               checked={purchaseLimitOn}
               onChange={(e) => setPurchaseLimitOn(e.target.checked)}
-              sx={switchSx}
             />
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Purchase limit</Typography>
@@ -74,7 +68,6 @@ export function SpendControls() {
             <Switch
               checked={transactionLimitOn}
               onChange={(e) => setTransactionLimitOn(e.target.checked)}
-              sx={switchSx}
             />
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Transaction limit</Typography>
@@ -99,7 +92,6 @@ export function SpendControls() {
               <Switch
                 checked={p.enabled}
                 onChange={() => toggleProduct(p.id)}
-                sx={switchSx}
               />
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{p.label}</Typography>
             </Box>

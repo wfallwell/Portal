@@ -19,7 +19,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { AppCard, AppButton, AppTextField, SuccessBanner } from '../components';
 import { teamMembers, totalActiveCount } from '../data/teamData';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 const ROWS_PER_PAGE = 25;
 const LABELS_VISIBLE = 2;
@@ -41,6 +41,7 @@ const cardOptionsOperator = [
 ];
 
 export function MyTeam() {
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [labelFilter, setLabelFilter] = useState('');
   const [addDrawerOpen, setAddDrawerOpen] = useState(false);
@@ -190,7 +191,7 @@ export function MyTeam() {
                 Tell us about your new team member
               </Typography>
             </Box>
-            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${colors.accent}26`, color: colors.primary, '&:hover': { bgcolor: `${colors.accent}40` } }}>
+            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${theme.palette.secondary.main}26`, color: theme.palette.primary.main, '&:hover': { bgcolor: `${theme.palette.secondary.main}40` } }}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -229,10 +230,10 @@ export function MyTeam() {
                         p: 2,
                         borderRadius: 1,
                         border: '2px solid',
-                        borderColor: selected ? colors.accent : 'divider',
-                        bgcolor: selected ? `${colors.accent}30` : 'background.paper',
+                        borderColor: selected ? theme.palette.secondary.main : 'divider',
+                        bgcolor: selected ? `${theme.palette.secondary.main}30` : 'background.paper',
                         cursor: 'pointer',
-                        '&:hover': { bgcolor: selected ? `${colors.accent}45` : 'action.hover' },
+                        '&:hover': { bgcolor: selected ? `${theme.palette.secondary.main}45` : 'action.hover' },
                       }}
                     >
                       <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>{opt.label}</Typography>
@@ -264,10 +265,10 @@ export function MyTeam() {
                         p: 2,
                         borderRadius: 1,
                         border: '2px solid',
-                        borderColor: selected ? colors.accent : 'divider',
-                        bgcolor: selected ? `${colors.accent}30` : 'background.paper',
+                        borderColor: selected ? theme.palette.secondary.main : 'divider',
+                        bgcolor: selected ? `${theme.palette.secondary.main}30` : 'background.paper',
                         cursor: 'pointer',
-                        '&:hover': { bgcolor: selected ? `${colors.accent}45` : 'action.hover' },
+                        '&:hover': { bgcolor: selected ? `${theme.palette.secondary.main}45` : 'action.hover' },
                       }}
                     >
                       <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>{opt.label}</Typography>

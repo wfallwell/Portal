@@ -23,7 +23,7 @@ import {
   Legend,
 } from 'recharts';
 import { AppCard } from '../components';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 import {
   fleet,
   user,
@@ -50,6 +50,7 @@ function formatCurrency(n: number) {
 }
 
 export function Dashboard() {
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [spendPage, setSpendPage] = useState(0);
   const [timeframe, setTimeframe] = useState('12');
@@ -127,9 +128,9 @@ export function Dashboard() {
         </AppCard>
         <AppCard
           sx={{
-            bgcolor: `${colors.accent}22`,
+            bgcolor: `${theme.palette.secondary.main}22`,
             border: '2px solid',
-            borderColor: colors.accent,
+            borderColor: theme.palette.secondary.main,
           }}
           contentProps={{ sx: { pt: 2.5 } }}
         >
@@ -139,8 +140,8 @@ export function Dashboard() {
                 width: 40,
                 height: 40,
                 borderRadius: 1,
-                bgcolor: colors.accent,
-                color: colors.primary,
+                bgcolor: theme.palette.secondary.main,
+                color: theme.palette.primary.main,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

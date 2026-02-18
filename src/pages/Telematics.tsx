@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { AppCard, AppButton } from '../components';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 const PROVIDERS = [
   { id: 'geotab', label: 'Geotab', initial: 'G' },
@@ -45,6 +45,7 @@ const PROVIDER_CONFIG: Record<
 };
 
 export function Telematics() {
+  const theme = useTheme();
   const [provider, setProvider] = useState<ProviderId>('geotab');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -108,17 +109,17 @@ export function Telematics() {
                     minWidth: 140,
                     borderRadius: 2,
                     border: '1px solid',
-                    borderColor: selected ? colors.accent : 'divider',
-                    bgcolor: selected ? `${colors.accent}26` : 'background.paper',
+                    borderColor: selected ? theme.palette.secondary.main : 'divider',
+                    bgcolor: selected ? `${theme.palette.secondary.main}26` : 'background.paper',
                     cursor: 'pointer',
                     font: 'inherit',
                     color: 'inherit',
                     textAlign: 'center',
                     '&:hover': {
-                      bgcolor: selected ? `${colors.accent}33` : 'action.hover',
+                      bgcolor: selected ? `${theme.palette.secondary.main}33` : 'action.hover',
                     },
                     '&:focus-visible': {
-                      outline: `2px solid ${colors.primary}`,
+                      outline: `2px solid ${theme.palette.primary.main}`,
                       outlineOffset: 2,
                     },
                   }}
@@ -128,8 +129,8 @@ export function Telematics() {
                       width: 48,
                       height: 48,
                       borderRadius: '50%',
-                      bgcolor: selected ? colors.accent : 'grey.200',
-                      color: selected ? colors.primary : 'text.secondary',
+                      bgcolor: selected ? theme.palette.secondary.main : 'grey.200',
+                      color: selected ? theme.palette.primary.main : 'text.secondary',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',

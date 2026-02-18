@@ -228,10 +228,6 @@ export function DriverProfile() {
                 <Switch
                   checked={fleetOperator}
                   onChange={(e) => setFleetOperator(e.target.checked)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': { color: '#88EDE4' },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#88EDE4' },
-                  }}
                 />
                 <Typography variant="body2" color="text.secondary">
                   Operators can manage drivers, payments, and spend controls.
@@ -246,10 +242,6 @@ export function DriverProfile() {
                 <Switch
                   checked={accountEnabled}
                   onChange={(e) => setAccountEnabled(e.target.checked)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': { color: '#88EDE4' },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#88EDE4' },
-                  }}
                 />
                 <Typography variant="body2" color="text.secondary">
                   {accountEnabled ? 'Enabled' : 'Disabled'}. Disabled drivers will not be able to make any purchases.

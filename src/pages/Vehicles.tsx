@@ -24,7 +24,7 @@ import Switch from '@mui/material/Switch';
 import LabelIcon from '@mui/icons-material/Label';
 import { AppCard, AppButton, AppTextField, SuccessBanner } from '../components';
 import { vehicles, totalVehiclesCount } from '../data/vehiclesData';
-import { colors } from '../theme/tokens';
+import { useTheme } from '@mui/material/styles';
 
 const ROWS_PER_PAGE = 25;
 const LABELS_VISIBLE = 2;
@@ -36,6 +36,7 @@ const fuelTypeOptions = ['Premium', 'Diesel', 'Unleaded'];
 const fuelCapacityOptions = ['64L', '55L', '70L', '80L', '45L', '90L'];
 
 export function Vehicles() {
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [labelFilter, setLabelFilter] = useState('');
   const [allowDriversAdd, setAllowDriversAdd] = useState(true);
@@ -135,11 +136,6 @@ export function Vehicles() {
             <Switch
               checked={allowDriversAdd}
               onChange={(e) => setAllowDriversAdd(e.target.checked)}
-              color="primary"
-              sx={{
-                '& .MuiSwitch-switchBase.Mui-checked': { color: '#88EDE4' },
-                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#88EDE4' },
-              }}
             />
           }
           label="Allow drivers to add new vehicles"
@@ -218,7 +214,7 @@ export function Vehicles() {
                 {showAllVehicleFields ? 'Enter the vehicle details below.' : 'Start by entering the VIN, or add details manually.'}
               </Typography>
             </Box>
-            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${colors.accent}26`, color: colors.primary, '&:hover': { bgcolor: `${colors.accent}40` } }}>
+            <IconButton onClick={closeAddDrawer} aria-label="Close" sx={{ bgcolor: `${theme.palette.secondary.main}26`, color: theme.palette.primary.main, '&:hover': { bgcolor: `${theme.palette.secondary.main}40` } }}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -328,7 +324,7 @@ export function Vehicles() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Box sx={{ width: 28, height: 28, borderRadius: 1, bgcolor: '#B8E4F0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: colors.primary }}>f</Box>
+                      <Box sx={{ width: 28, height: 28, borderRadius: 1, bgcolor: '#B8E4F0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: theme.palette.primary.main }}>f</Box>
                     </InputAdornment>
                   ),
                 }}
