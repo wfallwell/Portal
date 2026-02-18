@@ -14,12 +14,11 @@ export function Login() {
   const theme = useTheme();
   const navigate = useNavigate();
   const [step, setStep] = useState<1 | 2>(1);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const [code, setCode] = useState<string[]>(['', '', '', '', '', '']);
   const codeInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const handleCredentials = (e: React.FormEvent) => {
+  const handlePhoneSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStep(2);
   };
@@ -113,30 +112,21 @@ export function Login() {
         }}
       >
         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, mb: 3 }}>
-          {step === 1 ? 'Sign in to your account' : 'Two-factor authentication'}
+          {step === 1 ? 'Sign in with your phone number' : 'Two-factor authentication'}
         </Typography>
 
         {step === 1 ? (
-          <Box component="form" onSubmit={handleCredentials}>
+          <Box component="form" onSubmit={handlePhoneSubmit}>
             <TextField
-              label="Email"
-              type="email"
+              label="Phone number"
+              type="tel"
               size="medium"
               fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              sx={{ mb: 2 }}
-              autoComplete="email"
-            />
-            <TextField
-              label="Password"
-              type="password"
-              size="medium"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="(555) 123-4567"
               sx={{ mb: 3 }}
-              autoComplete="current-password"
+              autoComplete="tel"
             />
             <AppButton type="submit" variant="contained" fullWidth size="large">
               Continue
@@ -199,7 +189,7 @@ export function Login() {
                 '&:hover': { textDecoration: 'underline' },
               }}
             >
-              ← Back to sign in
+              ← Use a different number
             </Typography>
           </Box>
         )}
